@@ -94,7 +94,7 @@ module cacherand
     decoder #(LOGNUMWAYS) decoder (VictimWayEnc, VictimWay);
 
     // LFSR polynomial logic
-    flopenl #(WIDTH) LFSRReg(.clk(clk), .load(reset), .en(LRUWriteEn), .d({next, currRandom[WIDTH-1:1]}), .val, .q(currRandom));
+  flopenl #(WIDTH) LFSRReg(.clk(clk), .load(reset), .en(LRUWriteEn & ~FlushStage), .d({next, currRandom[WIDTH-1:1]}), .val, .q(currRandom));
 
     if (WIDTH == 3) //two way, degree 2
         assign next = currRandom[2] ^ currRandom[1] ^ currRandom[0];
